@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->string('ciudad');
             $table->integer('telefono');
+            $table->string('rol');
             $table->timestamps();
         });
     }

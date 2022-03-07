@@ -17,6 +17,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('asistente_id');
             $table->unsignedBigInteger('evento_id');
+            $table->foreign('evento_id')->references('id')->on('eventos');
+            $table->foreign('asistente_id')->references('id')->on('asistentes');
             $table->integer('numentradas');
             $table->string('estado');
             $table->timestamps();
