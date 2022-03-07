@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->integer('aforomax');
             $table->string('tipo');
+            $table->string('imagen');
             $table->integer('nummaxentradas');
             $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('user_id');
