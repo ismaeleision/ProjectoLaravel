@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('inscripciones', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('asistente_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('evento_id');
             $table->foreign('evento_id')->references('id')->on('eventos');
-            $table->foreign('asistente_id')->references('id')->on('asistentes');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('numentradas');
             $table->string('estado');
             $table->timestamps();

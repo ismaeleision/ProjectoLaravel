@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('tipo');
             $table->integer('nummaxentradas');
             $table->unsignedBigInteger('categoria_id');
-            $table->unsignedBigInteger('asistente_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('categoria_id')->references('id')->on('categorias');
-            $table->foreign('asistente_id')->references('id')->on('asistentes');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
