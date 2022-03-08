@@ -63,10 +63,9 @@
             <!-- ROL -->
             <div>
                 <x-label for="rol" :value="__('Rol')" />
-                <x-label for="rol" :value="__('Admin')" />
-                <x-input id="rol1" class="block mt-1w-2" type="radio" name="rol" value="admin" />
-                <x-input id="rol2" class="block mt-1w-2" type="radio" name="rol" value="organizador" />Organizador
-                <x-input id="rol3" class="block mt-1w-2" type="radio" name="rol" value="usuario" />Usuario
+                <x-input id="rol" class="block mt-1w-2" type="radio" name="rol" value="admin" />Admin
+                <x-input id="rol" class="block mt-1w-2" type="radio" name="rol" value="organizador" />Organizador
+                <x-input id="rol" class="block mt-1w-2" type="radio" name="rol" value="usuario" />Usuario
             </div>
 
 
