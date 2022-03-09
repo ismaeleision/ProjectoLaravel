@@ -57,13 +57,12 @@ class EventoController extends Controller
         $evento->user_id = Auth::id();
         $evento->save();
 
-
         //$path = $request->file('imagen')->store('public');
         $path = $request->file('imagen')->storeAs(
             'public',
             $evento->id . '.jpg'
         );
-        $evento->imagen = asset('storage/' . $evento->id . '.jpg');
+        $evento->imagen = asset('imagenes/' . $evento->id . '.jpg');
         $evento->save();
 
         return redirect()->route('eventos.index');
