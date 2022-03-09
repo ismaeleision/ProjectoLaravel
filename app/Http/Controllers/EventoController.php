@@ -19,7 +19,8 @@ class EventoController extends Controller
     {
         $id = Auth::id();
         $eventos = Evento::where('user_id', $id)->paginate(8);
-        return view('evento', ['eventos' => $eventos]);
+        $categorias = Categoria::all();
+        return view('evento', ['eventos' => $eventos, 'categorias' => $categorias]);
         return view("evento");
     }
 
@@ -76,7 +77,8 @@ class EventoController extends Controller
      */
     public function show($id)
     {
-        //
+        $evento = Evento::find($id);
+        return view('detalleEvento', ['evento' => $evento]);
     }
 
     /**

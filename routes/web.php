@@ -13,9 +13,11 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/eventos', [EventoController::class, 'index']);
+Route::get('/acerca', function () {
+    return view("acercade");
+})->name("acerca");
+
 
 Route::middleware(['auth'])->group(function () {
     //Rutas asociadas al controlador resource servicioController
