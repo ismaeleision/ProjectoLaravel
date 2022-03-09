@@ -1,16 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventoController;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
-|
 */
 
 Route::get('/', function () {
@@ -22,16 +18,15 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    //Rutas asociadas al controlador resource CitaController
+    //Rutas asociadas al controlador resource servicioController
     //GET 	/eventos 	index 	eventos.index
     //GET 	/eventos/create 	create 	eventos.create
     //POST 	/eventos 	store 	eventos.store
-    //GET 	/eventos/{cita} 	show 	eventos.show
-    //GET 	/eventos/{cita}/edit 	edit 	eventos.edit
-    //PUT/PATCH 	/eventos/{cita} 	update 	eventos.update
-    //DELETE 	/eventos/{cita} 	destroy 	eventos.destroy
+    //GET 	/eventos/{servicio} 	show 	eventos.show
+    //GET 	/eventos/{servicio}/edit 	edit 	eventos.edit
+    //PUT/PATCH 	/eventos/{servicio} 	update 	eventos.update
+    //DELETE 	/eventos/{servicio} 	destroy 	eventos.destroy
     Route::resource('eventos', EventoController::class);
 });
-
 
 require __DIR__ . '/auth.php';

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Evento;
+use App\Models\Categoria;
 
 
 class EventoController extends Controller
@@ -29,7 +30,8 @@ class EventoController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+        return view("createEvento", ['categorias' => $categorias]);
     }
 
     /**
@@ -40,7 +42,31 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Insercción
+        $evento = new Evento;
+        $evento->nombre = $request->nombre;
+        $evento->fecha = $request->fecha;
+        $evento->descripcion = $request->descripcion;
+        $evento->ciudad = $request->ciudad;
+        $evento->direccion = $request->direccion;
+        $evento->aforomax = $request->aforomax;
+        $evento->tipo = $request->tipo;
+        $evento->imagen = "";
+        $evento->nummaxentradas = $request->nummaxentradas;
+        $evento->categoria_id = $request->categoria;
+        $evento->user_id = Auth::id();
+        $evento->save();
+
+
+        //$path = $request->file('imagen')->store('public');
+        $path = $request->file('imagen')->storeAs(
+            'public',
+            $evento->id . '.jpg'
+        );
+        $evento->imagen = asset('storage/' . $evento->id . '.jpg');
+        $evento->save();
+
+        return redirect()->route('eventos.index');
     }
 
     /**
