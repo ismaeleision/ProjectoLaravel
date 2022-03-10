@@ -89,7 +89,7 @@ class EventoController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo "editando";
     }
 
     /**
@@ -112,6 +112,12 @@ class EventoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $evento = Evento::find($id);
+        if ($evento->user->id == Auth::id()) {
+            Evento::destroy($id);
+        } else {
+            abort(403);
+        }
+        return redirect()->route('eventos.index');
     }
 }

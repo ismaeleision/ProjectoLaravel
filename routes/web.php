@@ -20,6 +20,7 @@ Route::get('/acerca', function () {
 
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/eventos/delete/{id}', [EventoController::class, 'destroy']);
     //Rutas asociadas al controlador resource servicioController
     //GET 	/eventos 	index 	eventos.index
     //GET 	/eventos/create 	create 	eventos.create
