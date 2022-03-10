@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Evento;
 use App\Models\Categoria;
+use Carbon\Carbon;
 
 
 class EventoController extends Controller
@@ -43,6 +44,14 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
+        //Validación
+        $validated = $request->validate([
+            'descripcion' => 'required|max:255',
+            'fecha' => 'required|after:today',
+            'aforomax' => 'required|max:1000',
+            'nummaxentradas' => 'required|max:1000'
+        ]);
+
         //Insercción
         $evento = new Evento;
         $evento->nombre = $request->nombre;
@@ -89,7 +98,9 @@ class EventoController extends Controller
      */
     public function edit($id)
     {
-        echo "editando";
+        $evento = Evento::find($id);
+        $categorias = Categoria::all();
+        return view("editEvento", ['evento' => $evento, 'categorias' => $categorias]);
     }
 
     /**
@@ -101,7 +112,34 @@ class EventoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Validación
+        $validated = $request->validate([
+            'descripcion' => 'required|max:255',
+            'fecha' => 'required|after:today',
+            'aforomax' => 'required|max:1000',
+            'nummaxentradas' => 'required|max:1000',
+
+        ]);
+
+        //Modificación
+        $evento = Evento::find($id);
+        if ($evento->user->id == Auth::id()) {
+            $evento->nombre = $request->nombre;
+            $evento->fecha = $request->fecha;
+            $evento->descripcion = $request->descripcion;
+            $evento->ciudad = $request->ciudad;
+            $evento->direccion = $request->direccion;
+            $evento->aforomax = $request->aforomax;
+            $evento->tipo = $request->tipo;
+            $evento->nummaxentradas = $request->nummaxentradas;
+            $evento->categoria_id = $request->categoria;
+            $evento->user_id = Auth::id();
+            $evento->save();
+        } else {
+            abort(403);
+        }
+
+        return redirect()->route('eventos.index');
     }
 
     /**
