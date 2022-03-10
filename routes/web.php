@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\InscripcionController;
 
 /*
 | Here is where you can register web routes for your application. These
@@ -30,6 +31,16 @@ Route::middleware(['auth'])->group(function () {
     //PUT/PATCH 	/eventos/{servicio} 	update 	eventos.update
     //DELETE 	/eventos/{servicio} 	destroy 	eventos.destroy
     Route::resource('eventos', EventoController::class);
+});
+
+Route::middleware(['auth', 'rol'])->group(function () {
+    //Rutas para Inscripciones
+    Route::get('/inscripciones', [InscripcionController::class, 'index'])->name("inscripciones.index");
+    Route::get('/inscripciones/delete/{id}', [InscripcionController::class, 'destroy']);
+    Route::get('/inscripciones/edit/{id}', [InscripcionController::class, 'edit']);
+    Route::get('/inscripciones/create/{id}', [InscripcionController::class, 'create']);
+    Route::put('/inscripciones/{id}', [InscripcionController::class, 'update']);
+    Route::post('/inscripciones', [InscripcionController::class, 'store'])->name('inscripciones.store');
 });
 
 require __DIR__ . '/auth.php';

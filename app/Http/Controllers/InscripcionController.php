@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Inscripcion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Evento;
+use App\Models\User;
 
 class InscripcionController extends Controller
 {
@@ -14,7 +17,17 @@ class InscripcionController extends Controller
      */
     public function index()
     {
-        //
+        //El admin puede verlas todas
+        if (Auth::user()->rol == 'admin') {
+            $inscripciones = Inscripcion::paginate(5);
+        } else {
+            //Sacar id de usuario autenticado
+            $id = Auth::id();
+            //Sacar las citas del usuario que se ha logueado
+            $inscripciones = Inscripcion::where('user_id', $id)->paginate(5);
+        }
+
+        return view("inscripcion", ["inscripciones" => $inscripciones]);
     }
 
     /**
@@ -22,9 +35,9 @@ class InscripcionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view("createInscripcion", ['id' => $id]);
     }
 
     /**
@@ -35,7 +48,20 @@ class InscripcionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validación
+        $validated = $request->validate([
+            'numentradas' => 'required|lt:10|gt:1'
+        ]);
+
+        //Insercción
+        $inscripcion = new Inscripcion;
+        $inscripcion->user_id = Auth::user()->id;
+        $inscripcion->evento_id = $request->evento;
+        $inscripcion->numentradas = $request->numentradas;
+        $inscripcion->estado = "En Proceso";
+        $inscripcion->save();
+
+        return redirect()->route('inscripciones.index');
     }
 
     /**
@@ -55,9 +81,10 @@ class InscripcionController extends Controller
      * @param  \App\Models\Inscripcion  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Inscripcion $inscripcion)
+    public function edit($id)
     {
-        //
+        $inscripcion = Inscripcion::find($id);
+        return view("editInscripcion", ['inscripcion' => $inscripcion]);
     }
 
     /**
@@ -67,9 +94,22 @@ class InscripcionController extends Controller
      * @param  \App\Models\Inscripcion  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Inscripcion $inscripcion)
+    public function update(Request $request, $id)
     {
-        //
+        //Validación
+        $validated = $request->validate([
+            'numentradas' => 'required|lt:10|gt:1'
+        ]);
+
+        //Insercción
+        $inscripcion = new Inscripcion;
+        $inscripcion->user_id = Auth::user()->id;
+        $inscripcion->evento_id = $request->evento;
+        $inscripcion->numentradas = $request->numentradas;
+        $inscripcion->estado = "En Proceso";
+        $inscripcion->save();
+
+        return redirect()->route('inscripciones.index');
     }
 
     /**
@@ -78,8 +118,14 @@ class InscripcionController extends Controller
      * @param  \App\Models\Inscripcion  $inscripcion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Inscripcion $inscripcion)
+    public function destroy($id)
     {
-        //
+        $inscripcion = Inscripcion::find($id);
+        if ($inscripcion->user->id == Auth::id()) {
+            Inscripcion::destroy($id);
+        } else {
+            abort(403);
+        }
+        return redirect()->route('inscripciones.index');
     }
 }

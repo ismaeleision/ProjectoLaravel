@@ -15,6 +15,13 @@
                     <x-nav-link :href="route('eventos.index')" :active="request()->routeIs('eventos.index')">
                         {{ __('Eventos') }}
                     </x-nav-link>
+
+                    @auth
+                    <x-nav-link :href="route('inscripciones.index')" :active="request()->routeIs('inscripciones.index')">
+                        {{ __('Inscripciones') }}
+                    </x-nav-link>
+                    @endauth
+
                     <x-nav-link :href="route('acerca')" :active="request()->routeIs('acerca')">
                         {{ __('Acerca De') }}
                     </x-nav-link>

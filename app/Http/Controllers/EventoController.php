@@ -47,7 +47,7 @@ class EventoController extends Controller
             'descripcion' => 'required|max:255',
             'fecha' => 'required|after:today',
             'aforomax' => 'required|max:1000',
-            'nummaxentradas' => 'required|max:1000'
+            'nummaxentradas' => 'required|lt:aforomax'
         ]);
 
         //Insercción
@@ -110,12 +110,12 @@ class EventoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //Validación
+        //Validación lt para poner un valor limite
         $validated = $request->validate([
             'descripcion' => 'required|max:255',
             'fecha' => 'required|after:today',
-            'aforomax' => 'required|max:1000',
-            'nummaxentradas' => 'required|max:aforomax'
+            'aforomax' => 'required|lt:1000',
+            'nummaxentradas' => 'required|lt:aforomax'
         ]);
 
         //Modificación

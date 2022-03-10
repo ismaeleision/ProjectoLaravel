@@ -18,7 +18,7 @@ class InscripcionPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return ($user->role == 'admin');
     }
 
     /**
@@ -30,7 +30,7 @@ class InscripcionPolicy
      */
     public function view(User $user, Inscripcion $inscripcion)
     {
-        //
+        return ($user->id === $inscripcion->user->id) || ($user->role == 'admin');
     }
 
     /**

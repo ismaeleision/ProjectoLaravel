@@ -4,7 +4,7 @@
       {{ __('Detalle Evento') }}--{{$evento->nombre}}
       @auth
       @if(Auth::user()->id != $evento->user->id)
-      <a href="*">
+      <a href="/inscripciones/create/{{$evento->id}}">
         <x-button class="ml-3">
           {{ __('Inscribete') }}
         </x-button>
