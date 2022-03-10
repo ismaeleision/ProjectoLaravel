@@ -4,7 +4,7 @@
             {{ __('Evento') }}
 
             @auth
-            @unless (Auth::user()->role == 'usuario')
+            @unless (Auth::user()->rol == 'usuario')
             <a href="/eventos/create">
                 <x-button class="ml-3">
                     {{ __('Nuevo Evento') }}
@@ -51,7 +51,7 @@
                                     @auth
                                     @unless(Auth::user()->role=='usuario' || $evento->user->id !=Auth::user()->id )
                                     <a href="/eventos/{{ $evento->id }}/edit" data-method='edit'><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-white-500 rounded">Editar</button></a>
-                                    <a href="/eventos/{{$evento->id}}" data-method='destroy'><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-white-500 rounded">Eliminar</button></a>
+                                    <a href="/eventos/delete/{{$evento->id}}" data-method='destroy'><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-white-500 rounded">Eliminar</button></a>
                                     @endif
                                     @endauth
                                 </td>

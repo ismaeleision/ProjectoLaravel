@@ -5,9 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('eventos.index') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
-                    </a>
+                    <h1 class="text-3xl items-center">
+                        Estafias Comesta S.A.
+                    </h1>
                 </div>
 
                 <!-- Navigation Links -->

@@ -19,10 +19,8 @@ class EventoController extends Controller
     public function index()
     {
         $id = Auth::id();
-        $eventos = Evento::where('user_id', $id)->paginate(8);
-        $categorias = Categoria::all();
-        return view('evento', ['eventos' => $eventos, 'categorias' => $categorias]);
-        return view("evento");
+        $eventos = Evento::all();
+        return view('evento', ['eventos' => $eventos]);
     }
 
     /**
@@ -117,8 +115,7 @@ class EventoController extends Controller
             'descripcion' => 'required|max:255',
             'fecha' => 'required|after:today',
             'aforomax' => 'required|max:1000',
-            'nummaxentradas' => 'required|max:1000',
-
+            'nummaxentradas' => 'required|max:aforomax'
         ]);
 
         //Modificación
