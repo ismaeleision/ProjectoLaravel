@@ -18,9 +18,14 @@
     <div class="w-full flex justify-between p-3 items-center">
       <span class="px-2 hover:bg-gray-300 cursor-pointer rounded"><i class="fas fa-ellipsis-h pt-2 text-lg"></i></span>
     </div>
-    <div class="h-4/12 w-6/12">
-      <img class="w-full bg-cover" src="{{$evento->imagen}}">
+
+    <!--Imagen-->
+    <div class="flex">
+      <div class="h-1/4 w-1/2 flex justify-items-center m-5">
+        <img class="w-full bg-cover" src="{{$evento->imagen}}">
+      </div>
     </div>
+
     <div class="px-3 pb-2 w-fit flex items-center bg-grey-300 border-black-500 mt-4">
       <!--Nombre-->
       <div class="pt-1">

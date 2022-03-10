@@ -31,9 +31,7 @@ Route::middleware(['auth'])->group(function () {
     //PUT/PATCH 	/eventos/{servicio} 	update 	eventos.update
     //DELETE 	/eventos/{servicio} 	destroy 	eventos.destroy
     Route::resource('eventos', EventoController::class);
-});
 
-Route::middleware(['auth', 'rol'])->group(function () {
     //Rutas para Inscripciones
     Route::get('/inscripciones', [InscripcionController::class, 'index'])->name("inscripciones.index");
     Route::get('/inscripciones/delete/{id}', [InscripcionController::class, 'destroy']);
