@@ -26,10 +26,8 @@
                                 <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Nombre</th>
                                 <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Fecha</th>
                                 <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Ciudad</th>
-                                <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Aforo Max</th>
                                 <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Organizador</th>
                                 <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Categoria</th>
-                                <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Tipo</th>
                                 <th class="bg-green-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">Acciones</th>
                             </tr>
                         </thead>
@@ -42,10 +40,8 @@
                                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{$evento->nombre}}</td>
                                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{$evento->fecha}}</td>
                                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{$evento->ciudad}}</td>
-                                <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{$evento->aforomax}}</td>
                                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{$evento->user->nombre}}</td>
                                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{$evento->categoria->nombre}}</td>
-                                <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">{{$evento->tipo}}</td>
                                 <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
                                     <a href="/eventos/{{$evento->id}}" data-method='show'><button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-1 px-2 border border-white-500 rounded">Detalles</button> </a>
                                     @auth
