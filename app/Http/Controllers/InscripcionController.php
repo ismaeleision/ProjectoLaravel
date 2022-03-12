@@ -128,4 +128,41 @@ class InscripcionController extends Controller
         }
         return redirect()->route('inscripciones.index');
     }
+
+    /**
+     *  Crear inscripciones a través de la API 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createApi(Request $request)
+    {
+        //Validación
+        $validated = $request->validate([
+            'numentradas' => 'required|lt:10|gt:1'
+        ]);
+
+        //Insercción
+        $inscripcion = new Inscripcion;
+        $inscripcion->user_id = Auth::user()->id;
+        $inscripcion->evento_id = $request->evento_id;
+        $inscripcion->numentradas = $request->numentradas;
+        $inscripcion->estado = "En Proceso";
+        $inscripcion->save();
+
+        return response()->json([
+            'message' => 'Cita creada correctamente'
+        ]);
+    }
+
+    public function deleteApi($id)
+    {
+        $inscripcion = Inscripcion::find($id);
+        $this->authorize('delete', $inscripcion);
+        Inscripcion::destroy($id);
+
+        return response()->json([
+            'message' => 'Cita eliminada correctamente'
+        ]);
+    }
 }
