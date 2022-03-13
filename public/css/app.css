@@ -715,16 +715,11 @@ select {
 .h-6 {
   height: 1.5rem;
 }
-.h-fit {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
+.h-1\/4 {
+  height: 25%;
 }
 .h-8 {
   height: 2rem;
-}
-.h-1\/4 {
-  height: 25%;
 }
 .h-20 {
   height: 5rem;
@@ -744,13 +739,13 @@ select {
 .w-full {
   width: 100%;
 }
+.w-1\/2 {
+  width: 50%;
+}
 .w-fit {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-}
-.w-1\/2 {
-  width: 50%;
 }
 .w-48 {
   width: 12rem;
@@ -1198,6 +1193,9 @@ select {
 }
 .ring-opacity-5 {
   --tw-ring-opacity: 0.05;
+}
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 .transition {
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
