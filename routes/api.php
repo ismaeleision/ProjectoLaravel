@@ -47,7 +47,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Get Evento por usuario No funciona
     Route::get('/inscripcion', function () {
-        return new InscripcionResource(Inscripcion::where('user_id', Auth::user()->id));
+        if (Auth::user()->rol != 'usuario')
+            return InscripcionResource::collection(Inscripcion::all());
+        else
+            abort(403);
     });
 
     //Borrar Inscripcion

@@ -41,7 +41,7 @@ class EventoPolicy
      */
     public function create(User $user)
     {
-        return ($user->role == 'organizador') || ($user->role == 'admin');
+        return ($user->rol == 'organizador') || ($user->rol == 'admin');
     }
 
     /**
@@ -53,7 +53,7 @@ class EventoPolicy
      */
     public function update(User $user, Evento $evento)
     {
-        return ($user->id === $evento->user->id) || ($user->role == 'admin');
+        return ($user->id === $evento->user->id) || ($user->rol == 'admin');
     }
 
     /**
@@ -65,7 +65,7 @@ class EventoPolicy
      */
     public function delete(User $user, Evento $evento)
     {
-        return ($user->id === $evento->user->id) || ($user->role == 'admin');
+        return ($user->id === $evento->user->id) || ($user->rol == 'admin');
     }
 
     /**

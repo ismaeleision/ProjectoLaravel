@@ -18,7 +18,7 @@ class InscripcionPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->role == 'admin');
+        return ($user->rol == 'admin');
     }
 
     /**
@@ -30,7 +30,7 @@ class InscripcionPolicy
      */
     public function view(User $user, Inscripcion $inscripcion)
     {
-        return ($user->id === $inscripcion->user->id) || ($user->role == 'admin');
+        return ($user->id === $inscripcion->user->id) || ($user->rol == 'admin');
     }
 
     /**
@@ -41,7 +41,7 @@ class InscripcionPolicy
      */
     public function create(User $user)
     {
-        return ($user->role == 'organizador') || ($user->role == 'admin');
+        return ($user->rol == 'organizador') || ($user->rol == 'admin');
     }
 
     /**
@@ -53,7 +53,7 @@ class InscripcionPolicy
      */
     public function update(User $user, Inscripcion $inscripcion)
     {
-        return ($user->id === $inscripcion->user->id) || ($user->role == 'admin');
+        return ($user->id === $inscripcion->user->id) || ($user->rol == 'admin');
     }
 
     /**
@@ -65,7 +65,7 @@ class InscripcionPolicy
      */
     public function delete(User $user, Inscripcion $inscripcion)
     {
-        return ($user->id === $inscripcion->user->id) || ($user->role == 'admin');
+        return ($user->id === $inscripcion->user->id) || ($user->rol == 'admin');
     }
 
     /**
