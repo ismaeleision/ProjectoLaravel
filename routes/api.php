@@ -47,7 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Get Evento por usuario No funciona
     Route::get('/inscripcion', function () {
-        if (Auth::user()->rol != 'usuario')
+        if (Auth::user()->rol == 'admin')
             return InscripcionResource::collection(Inscripcion::all());
         else
             abort(403);

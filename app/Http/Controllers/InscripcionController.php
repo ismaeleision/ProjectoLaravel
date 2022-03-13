@@ -151,7 +151,7 @@ class InscripcionController extends Controller
         $inscripcion->save();
 
         return response()->json([
-            'message' => 'Cita creada correctamente'
+            'message' => 'Inscripcion creada correctamente'
         ]);
     }
 
@@ -162,7 +162,7 @@ class InscripcionController extends Controller
         Inscripcion::destroy($id);
 
         return response()->json([
-            'message' => 'Cita eliminada correctamente'
+            'message' => 'Inscripcion eliminada correctamente'
         ]);
     }
 }
