@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inscripcion;
+use App\Http\Controllers\EventoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Evento;
@@ -48,10 +49,15 @@ class InscripcionController extends Controller
      */
     public function store(Request $request)
     {
+        $evento = Evento::find($request->evento);
+        $entradas = $evento->nummaxentradas;
+
         //Validación
         $validated = $request->validate([
-            'numentradas' => 'required|lt:10|gt:1'
+            'numentradas' => 'required|lt:$entradas|gt:0'
         ]);
+
+
 
         //Insercción
         $inscripcion = new Inscripcion;
@@ -60,6 +66,10 @@ class InscripcionController extends Controller
         $inscripcion->numentradas = $request->numentradas;
         $inscripcion->estado = "En Proceso";
         $inscripcion->save();
+
+        $evento = Evento::find($request->evento);
+        $evento->nummaxentradas = $evento->nummaxentradas - $request->numentradas;
+        $evento->save();
 
         return redirect()->route('inscripciones.index');
     }
@@ -96,17 +106,27 @@ class InscripcionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $inscripcion = Inscripcion::find($id);
+        $evento = Evento::find($inscripcion->evento->id);
+        $entradas = $evento->nummaxentradas;
+
         //Validación
         $validated = $request->validate([
-            'numentradas' => 'required|lt:10|gt:1'
+            'numentradas' => 'required|lt:10|gt:0'
         ]);
 
         //Insercción
-        $inscripcion = new Inscripcion;
-        $inscripcion->user_id = Auth::user()->id;
-        $inscripcion->evento_id = $request->evento;
+
+
+        //Actualiza el total de entradas del evento
+        $evento->nummaxentradas = $evento->nummaxentradas + ($inscripcion->numentradas - $request->numentradas);
+        $evento->save();
+
         $inscripcion->numentradas = $request->numentradas;
-        $inscripcion->estado = "En Proceso";
+        //Si el usuario es admin o el organizador del evento modifica el estado
+        if (Auth::user()->rol == "admin" || $inscripcion->evento->user_id == Auth::user()->id)
+            $inscripcion->estado = $request->estado;
+
         $inscripcion->save();
 
         return redirect()->route('inscripciones.index');
@@ -121,7 +141,14 @@ class InscripcionController extends Controller
     public function destroy($id)
     {
         $inscripcion = Inscripcion::find($id);
+
+        //Actualizar las entradas de los eventos
+        $evento = Evento::find($inscripcion->evento->id);
+        $evento->nummaxentradas = intval($evento->nummaxentradas) + $inscripcion->numentradas;
+        $evento->save();
+
         if ($inscripcion->user->id == Auth::id()) {
+
             Inscripcion::destroy($id);
         } else {
             abort(403);
@@ -139,7 +166,7 @@ class InscripcionController extends Controller
     {
         //Validación
         $validated = $request->validate([
-            'numentradas' => 'required|lt:10|gt:1'
+            'numentradas' => 'required|lt:10|gt:0'
         ]);
 
         //Insercción

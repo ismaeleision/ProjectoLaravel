@@ -11,10 +11,10 @@ use App\Http\Controllers\InscripcionController;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+    return redirect()->action([EventoController::class, 'index']);
 });
 
-Route::get('/eventos', [EventoController::class, 'index']);
+Route::get('/eventos', [EventoController::class, 'index'])->name("eventos.index");
 Route::get('/acerca', function () {
     return view("acercade");
 })->name("acerca");

@@ -18,13 +18,15 @@
             <!-- Nombre -->
             <div>
               <x-label for="nombre" :value="__('Nombre')" />
-              <x-input id="nombre" class="block mt-1 w-full" type="text" disabled name="nombre" :value="old('nombre')" value="{{$inscripcion->user->nombre}}" required autofocus />
+              <x-input class="block mt-1 w-full" type="text" disabled :value="old('nombre')" value="{{$inscripcion->user->nombre}}" required autofocus />
+              <x-input type="hidden" id="user_id" value="{{$inscripcion->user->id}}" />
             </div>
 
             <!-- Evento -->
             <div>
               <x-label for="evento" :value="__('Evento')" />
-              <x-input id="evento" class="block mt-1 w-full" type="text" disabled name="evento" :value="old('evento')" value="{{$inscripcion->evento->nombre}}" required autofocus />
+              <x-input class="block mt-1 w-full" type="text" disabled :value="old('evento')" value="{{$inscripcion->evento->nombre}}" required autofocus />
+              <x-input type="hidden" id="evento" value="{{$inscripcion->evento->id}}" />
             </div>
 
             <!-- NumEntradas -->
@@ -34,6 +36,14 @@
             </div>
 
             <!-- Estado  Proceso/Autorizado/Denegado-->
+            @if (Auth::user()->id == $inscripcion->user->id)
+            <div>
+              <x-label for="estado" :value="__('Estado')" />
+              <select name="estado" disabled id="estado" class="w-1/2">
+                <option value="En Proceso" selected>En Proceso</option>
+              </select>
+            </div>
+            @else
             <div>
               <x-label for="estado" :value="__('Estado')" />
               <select name="estado" id="estado" class="w-1/2">
@@ -42,6 +52,7 @@
                 <option value="denegado">Denegado</option>
               </select>
             </div>
+            @endif
 
             <x-button class="ml-4 mt-2">
               {{ __('Actualizar Evento') }}

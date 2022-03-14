@@ -155,4 +155,14 @@ class EventoController extends Controller
         }
         return redirect()->route('eventos.index');
     }
+
+    public function actualizarEntradas($num, $id)
+    {
+        $evento = Evento::find($id);
+        if( $evento->nummaxentradas)
+        $evento->nummaxentradas = $evento->nummaxentradas - $num;
+        echo  $evento->nummaxentradas;
+
+        //$evento->save();
+    }
 }
